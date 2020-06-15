@@ -1,0 +1,14 @@
+{
+  //collection of code transform plugins. what applies the transformaitons
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": [
+          //babel needs to be told what versions it needs convert for
+          "last 5 versions",
+          "ie >= 8"
+        ]
+      }
+    }]
+  ]
+}
