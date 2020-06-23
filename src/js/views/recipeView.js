@@ -8,6 +8,7 @@ export const clearRecipe = () => {
 const formatCount = count => {
     if (count) {
         //ex. count = 2.5 --> 2 1/2
+        const newCount = Math.round(count * 10000) / 10000;
         const [int, dec] = count.toString().split('.').map( el => parseInt(el, 10));
 
         if (!dec) return count;
@@ -39,7 +40,7 @@ const createIngredient = ingredient => `
 export const renderRecipe = (recipe, isLiked) => {
   const markup = `
     <figure class="recipe__fig">
-        <img src="${recipe.image_url}" alt="${recipe.title}" class="recipe__img">
+        <img src="${recipe.img}" alt="${recipe.title}" class="recipe__img">
         <h1 class="recipe__title">
             <span>${recipe.title}</span>
         </h1>

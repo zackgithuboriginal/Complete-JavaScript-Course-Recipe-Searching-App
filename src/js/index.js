@@ -25,7 +25,7 @@ const state = {};
 const controlSearch = async () => {
   //1) get query from view
   const query = searchView.getInput();
-
+  
   if (query) {
     //2) new Search object and add to state
     state.search = new Search(query);
@@ -68,7 +68,6 @@ elements.searchResPages.addEventListener('click', e => {
 const controlRecipe = async () => {
   // get ID from url
   const id = window.location.hash.replace('#', '');
-  console.log(id);
 
   if (id) {
     //prepare url for changes
@@ -140,8 +139,6 @@ elements.shopping.addEventListener('click', e => {
 
 //like controller
 //
-//JUST FOR TESTING
-state.likes = new Likes();
 const controlLike = () => {
   if(!state.likes) state.likes = new Likes();
   const currentID = state.recipe.id;
@@ -170,6 +167,22 @@ const controlLike = () => {
   likesView.toggleLikeMenu(state.likes.getNumLikes());
 }
 
+//
+//restore liked recipes on page load
+//
+window.addEventListener('load', () => {
+  
+  state.likes = new Likes();
+  //restore likes
+  state.likes.readStorage();
+
+  //toggle like menu btn
+  likesView.toggleLikeMenu(state.likes.getNumLikes());
+
+  //render the existing likes
+  state.likes.likes.forEach(like => likesView.renderLike(like));
+});
+
 //Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
   if (e.target.matches('.btn-decrease, .btn-decrease *')) {
@@ -190,5 +203,3 @@ elements.recipe.addEventListener('click', e => {
     controlLike();
   }
 })
-
-window.l = new List();
